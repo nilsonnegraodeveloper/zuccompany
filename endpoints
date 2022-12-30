@@ -1,0 +1,206 @@
+ENDPOINTS:
+
+AUTHENTICATE
+LOGIN
+URI usada: /api/v1/login 
+Public: SIM
+Tipo: POST
+Request: { "login": STRING; "password": STRING }
+Return Success: { "token": JWT, "user": OBJECT }
+Return Fail: { "error" : STRING }
+
+ME (Retorna um objeto com os dados do usuário logado)
+URI usada: /api/v1/me (Retorna um objeto com os dados do usuário logado)
+Public: NÃO
+Tipo: POST
+Return Success: {"user": OBJECT }
+Return Fail: { "error" : STRING }
+
+ME (Renovar a autorização)
+URI sugerida: /api/v1/refresh 
+Public: NÃO
+Tipo: POST
+Return Success: { "token": JWT, "user": OBJECT }
+Return Fail: { "error" : STRING }
+
+LOGOUT (Revogar a autorização)
+URI sugerida: /api/v1/logout 
+Public: NÃO
+Tipo: POST
+Return Success: { "message": STRING }
+
+****************************************************************************************
+USERS
+SHOW (retorna um usuário)
+URI usada: /api/v1/users/{ID}
+Public: NÃO
+Tipo: GET
+Return Success: { "user" : OBJECT }
+Return Fail: { "error" : STRING }
+
+STORE (cadastra um usuário)
+URI usada: /api/v1/users/signup
+Public: Não
+Tipo: POST
+Request: { "name": STRING, "email": STRING, "login": STRING; "password": STRING  }
+Return Success: { "user" : OBJECT }
+Return Fail: { "error" : STRING }
+
+****************************************************************************************
+
+FORMAS DE PAGAMENTO
+INDEX (retorna lista de formas de pagamento)
+URI usada: /api/v1/formasPagamento
+Public: Não
+Tipo: GET
+Return Success: { "formasPagamento" : { OBJECT } }
+Return Fail: { "message" : STRING }
+
+SHOW (retorna uma forma de pagamento)
+URI usada: /api/v1/formasPagamento/{ID}
+Public: NÃO
+Tipo: GET
+Return Success: { "formaPagamento" : OBJECT }
+Return Fail: { "error" : STRING }
+
+STORE (cadastra uma forma de pagamento)
+URI usada: /api/v1/formasPagamento/store
+Public: Não
+Tipo: POST
+Request: { "nome": STRING}
+Return Success: { "formaPagamento" : OBJECT }
+Return Fail: { "message" : STRING }
+
+UPDATE (atualiza uma forma de pagamento)
+URI usada: /api/v1/formasPagamento/update/{ID}
+Public: Não
+Tipo: PUT
+Request: { "nome": STRING }
+Return Success: { "formaPagamento" : OBJECT }
+Return Fail: { "message" : STRING }
+
+DELETE (deleta uma forma de pagamento)
+URI usada: /api/v1/formasPagamento/delete/{ID}
+Public: Não
+Tipo: DELETE
+Request: { "id": INTEGER }
+Return Fail: { "message" : STRING }
+
+****************************************************************************************
+
+CLIENTES
+INDEX(retorna lista de clientes com suas vendas)
+URI usada: /api/v1/clientes
+Public: Não
+Tipo: GET
+Return Success: { "clientes" : { OBJECT 1,  OBJECT 2} }
+Return Fail: { "message" : STRING }
+
+SHOW (retorna um cliente com suas vendas)
+URI usada: /api/v1/clientes/{ID}
+Public: Não
+Tipo: GET
+Return Success: { "cliente" : { OBJECT 1,  OBJECT 2} }
+Return Fail: { "message" : STRING }
+STORE (cadastra um cliente)
+URI usada: /api/v1/clientes/store
+Public: Não
+Tipo: POST
+Request: { "nome": STRING, "cpf": STRING, "telefone": STRING, "email": STRING, "cidade": STRING, "estado": STRING, "cep": STRING, "bairro": STRING, "endereco": STRING, "complemento": STRING}
+Return Success: { "cliente" : OBJECT }
+Return Fail: { "message" : STRING }
+
+UPDATE (atualiza um cliente)
+URI usada: /api/v1/clientes/update/{ID}
+Public: Não
+Tipo: PUT
+Request: { "nome": STRING, "cpf": STRING, "telefone": STRING, "email": STRING, "cidade": STRING, "estado": STRING, "cep": STRING, "bairro": STRING, "endereco": STRING, "complemento": STRING }
+Return Success: { "cliente" : OBJECT }
+Return Fail: { "message" : STRING }
+
+DELETE (deleta um cliente)
+URI usada: /api/v1/clientes/delete/{ID}
+Public: Não
+Tipo: DELETE
+Request: { "id": INTEGER }
+Return Fail: { "message" : STRING }
+
+****************************************************************************************
+
+PRODUTOS
+INDEX (retorna lista de produtos)
+URI usada: /api/v1/produtos
+Public: Não
+Tipo: GET
+Return Success: { "produtos" : { OBJECT} }
+Return Fail: { "message" : STRING }
+
+SHOW (retorna um produto)
+URI usada: /api/v1/produtos/{ID}
+Public: Não
+Tipo: GET
+Return Success: { "produto" : { OBJECT} }
+Return Fail: { "message" : STRING }
+
+STORE (cadastra um produto)
+URI usada: /api/v1/produtos/store
+Public: Não
+Tipo: POST
+Request: { "nome": STRING, "quantidade": INTEGER, "preco": STRING, "observacao": TEXT }
+Return Success: { "produto" : OBJECT }
+Return Fail: { "message" : STRING }
+
+UPDATE (atualiza um produto)
+URI usada: /api/v1/produtos/update/{ID}
+Public: Não
+Tipo: PUT
+Request: { "nome": STRING, "quantidade": INTEGER, "preco": STRING, "observacao": TEXT }
+Return Success: { "produto" : OBJECT }
+Return Fail: { "message" : STRING }
+
+DELETE (deleta um produto)
+URI usada: /api/v1/produtos/delete/{ID}
+Public: Não
+Tipo: DELETE
+Request: { "id": INTEGER }
+Return Fail: { "message" : STRING }
+
+****************************************************************************************
+
+VENDAS
+INDEX (retorna lista de vendas)
+URI usada: /api/v1/vendas
+Public: Não
+Tipo: GET
+Return Success: { "vendas" : { OBJECT} }
+Return Fail: { "message" : STRING }
+
+SHOW (retorna um venda)
+URI usada: /api/v1/vendas/{ID}
+Public: Não
+Tipo: GET
+Return Success: { "venda" : { OBJECT} }
+Return Fail: { "message" : STRING }
+
+STORE (cadastra um venda)
+URI usada: /api/v1/vendas/store
+Public: Não
+Tipo: POST
+Request: { "cliente_id": INTEGER, "quantidade": INTEGER, "produto_id": INTEGER, "forma_pagamento_id": INTEGER, "observacao": TEXT }
+Return Success: { "venda" : OBJECT }
+Return Fail: { "message" : STRING }
+
+UPDATE (atualiza um venda)
+URI usada: /api/v1/vendas/update/{ID}
+Public: Não
+Tipo: PUT
+Request: { "quantidade": INTEGER, "produto_id": INTEGER, "forma_pagamento_id": INTEGER, "observacao": TEXT  }
+Return Success: { "venda" : OBJECT }
+Return Fail: { "message" : STRING }
+
+DELETE (deleta um venda)
+URI usada: /api/v1/vendas/delete/{ID}
+Public: Não
+Tipo: DELETE
+Request: { "id": INTEGER }
+Return Fail: { "message" : STRING }

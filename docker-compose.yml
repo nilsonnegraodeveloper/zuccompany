@@ -1,0 +1,60 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: Zuccompany
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: zuccompany
+    container_name: zuccompany-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - zuccompany
+
+  db-zuccompany:
+    image: postgres:12.0-alpine  
+    container_name: zuccompany-db
+    restart: unless-stopped
+    environment:
+        POSTGRES_USER: ${POSTGRES_USER:-postgres}
+        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+        PGDATA: /data/postgres
+    ports:
+        - "5433:5432"
+    volumes:
+        - ./.docker/dbdata:/var/lib/postgresql/data
+    networks:
+      - zuccompany
+
+  pgadmin-compose:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "teste@teste.com"
+      PGADMIN_DEFAULT_PASSWORD: "postgres"
+    ports:
+      - "15432:80"
+    depends_on:
+      - db-zuccompany
+    networks:
+      - zuccompany
+
+  nginx:
+    image: nginx:alpine
+    container_name: zuccompany-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www/html
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - zuccompany
+
+networks:
+  zuccompany:
+    driver: bridge
